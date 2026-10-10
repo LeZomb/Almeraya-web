@@ -13,7 +13,7 @@
           colors: {
             brand: {
               black: '#0b0d10',
-              dark: '#13171f',
+              dark: '#13181E',
               card: '#1a202c',
               gold: '#d4af37',
               goldHover: '#f3ca40',
@@ -28,7 +28,7 @@
     body {
       background-color: #0b0d10;
       color: #e2e8f0;
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'Consolas', system-ui, -apple-system, sans-serif;
     }
     .gold-gradient-text {
       background: linear-gradient(135deg, #fff 30%, #d4af37 100%);
@@ -47,9 +47,7 @@
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
       <!-- Logo -->
       <a href="#inicio" class="flex items-center gap-3 group">
-        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-gold to-amber-700 flex items-center justify-center font-bold text-brand-black text-xl shadow-md">
-          A
-        </div>
+        <img src="images/logo-almeraya-sf.png" alt="Logo Almeraya" class="h-16 w-auto">
         <span class="text-2xl font-black tracking-wider text-white group-hover:text-brand-gold transition">ALMERAYA</span>
       </a>
 
@@ -86,10 +84,7 @@
         </p>
         <div class="flex flex-wrap gap-4">
           <a href="#contacto" class="px-8 py-4 bg-brand-gold text-brand-black font-bold rounded-xl hover:bg-brand-goldHover transition shadow-lg flex items-center gap-2">
-            Iniciar Proyecto <i class="fa-solid fa-arrow-right"></i>
-          </a>
-          <a href="#servicios" class="px-8 py-4 bg-brand-card text-white font-semibold rounded-xl border border-gray-700 hover:border-brand-gold transition">
-            Ver Servicios
+            Cotizar Proyecto <i class="fa-solid fa-arrow-right"></i>
           </a>
         </div>
       </div>
@@ -103,7 +98,7 @@
               <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
               <div class="w-3 h-3 rounded-full bg-green-500"></div>
             </div>
-            <span class="text-xs font-mono text-gray-500">almeraya_workflow.rpa</span>
+            <span class="text-xs font-mono text-gray-500">almeraya.rpa</span>
           </div>
           <div class="space-y-4 my-auto">
             <div class="flex items-center gap-4 p-3 bg-brand-dark/90 rounded-lg border border-gray-800">
@@ -114,7 +109,7 @@
               </div>
             </div>
             <div class="flex items-center gap-4 p-3 bg-brand-dark/90 rounded-lg border border-gray-800">
-              <i class="fa-solid fa-robot text-brand-gold text-xl"></i>
+              <img src="images/rpa-icon.svg" alt="Icono fa-gears" class="service-icon">
               <div>
                 <p class="text-xs text-gray-400">Automatización RPA</p>
                 <p class="text-sm font-bold text-white">Bots trabajando 24/7 sin errores</p>
@@ -144,7 +139,7 @@
             <i class="fa-solid fa-laptop-code"></i>
           </div>
           <h3 class="text-xl font-bold text-white mb-3">Creación de Páginas Web</h3>
-          <p class="text-gray-400 text-sm leading-relaxed mb-4">Landing pages, sitios corporativos y tiendas en línea con diseño UX/UI moderno, adaptados a dispositivos móviles y optimizados para SEO.</p>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">Landing pages, sitios coorporativos, y tiendas en linea con diseño UX/UI modernos, adaptados a dispositivos móviles y optimizados para SEO.</p>
         </div>
 
         <!-- Servicio 2 -->
@@ -153,16 +148,16 @@
             <i class="fa-solid fa-gears"></i>
           </div>
           <h3 class="text-xl font-bold text-white mb-3">Automatización RPA</h3>
-          <p class="text-gray-400 text-sm leading-relaxed mb-4">Desarrollo de bots para automatizar tareas repetitivas: extracción de datos, facturación, reportes y conexión entre sistemas.</p>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">Desarrollo de bots para automatizar tareas repetitivas: extracción de datos, facturación, reportes creación de documentos.</p>
         </div>
 
         <!-- Servicio 3 -->
         <div class="bg-brand-black p-8 rounded-2xl border border-gray-800 hover:border-brand-gold/50 transition duration-300">
           <div class="w-12 h-12 bg-brand-gold/10 text-brand-gold rounded-xl flex items-center justify-center text-2xl mb-6">
-            <i class="fa-solid fa-diagram-project"></i>
+            <img src="images/Dimond_fill.svg" alt="Icono fa-dimond" class="service-icon">
           </div>
-          <h3 class="text-xl font-bold text-white mb-3">Consultoría TI & PM</h3>
-          <p class="text-gray-400 text-sm leading-relaxed mb-4">Gestión de proyectos tecnológicos bajo marcos ágiles (Scrum/Kanban), asegurando entregas a tiempo y alineadas a objetivos de negocio.</p>
+          <h3 class="text-xl font-bold text-white mb-3">Consultoría TI y PM</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">Gestión de proyectos tecnológicos bajo marcos de trabajo ágiles, asegurando entregas a tiempo y alineadas a objetivos de negocio.</p>
         </div>
       </div>
     </div>
@@ -172,7 +167,7 @@
   <section id="proceso" class="py-24 max-w-7xl mx-auto px-6">
     <div class="text-center max-w-2xl mx-auto mb-16">
       <h2 class="text-3xl font-bold text-white mb-4">¿Cómo trabajamos?</h2>
-      <p class="text-gray-400">Un flujo estructurado y transparente desde la primera llamada hasta la entrega final.</p>
+      <p class="text-gray-400">Un flujo efectuado y transparente desde la primera llamada hasta la entrega final.</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
@@ -205,56 +200,27 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div class="space-y-6">
           <span class="text-brand-gold text-sm font-semibold uppercase tracking-widest">Sobre el fundador</span>
-          <h2 class="text-3xl font-bold text-white">Ingeniería en Computación & Dirección de Proyectos</h2>
+          <h2 class="text-3xl font-bold text-white">Ingeniería en Computación y amplia experiencia en Dirección de Proyectos</h2>
           <p class="text-gray-400 leading-relaxed">
-            Detrás de **Almeraya** se combina la base técnica de la ingeniería en computación con la visión estratégica de la dirección de proyectos de tecnologías de la información (Scrum Master).
+            Detrás de ALMERAYA se combina la base técnica de la ingeniería en computación con la visión estratégica de la dirección de proyectos de tecnologías de la información (Scrum Master).
           </p>
           <p class="text-gray-400 leading-relaxed">
-            Nuestro objetivo no es solo entregar líneas de código o páginas web bonitas, sino implementar soluciones tecnológicas operativas que resuelvan problemas reales de negocio y generen retorno de inversión.
+            Nuestro objetivo no es solo entregar líneas de código o páginas web “bonitas”, sino implementar soluciones tecnológicas operativas que resuelvan problemas reales de negocio y generen retorno de inversión.
           </p>
           <div class="grid grid-cols-2 gap-4 pt-4">
             <div class="border-l-2 border-brand-gold pl-4">
               <span class="text-2xl font-bold text-white">100%</span>
-              <p class="text-xs text-gray-400">Enfoque en Calidad & SLAs</p>
+              <p class="text-xs text-gray-400">Enfoque en calidad</p>
             </div>
             <div class="border-l-2 border-brand-gold pl-4">
               <span class="text-2xl font-bold text-white">Agile</span>
-              <p class="text-xs text-gray-400">Metodologías Scrum & Kanban</p>
+              <p class="text-xs text-gray-400">Metodología SCRUM, tradicional, crystal, extreme programing y más.</p>
             </div>
           </div>
         </div>
 
         <div class="bg-brand-black p-8 rounded-2xl border border-gray-800">
-          <h3 class="text-xl font-bold text-white mb-6">Stack Tecnológico & Competencias</h3>
-          <div class="space-y-4">
-            <div>
-              <div class="flex justify-between text-sm mb-1">
-                <span class="text-gray-300">Desarrollo Web (HTML, CSS, JS, React)</span>
-                <span class="text-brand-gold">Avanzado</span>
-              </div>
-              <div class="w-full bg-gray-800 h-2 rounded-full">
-                <div class="bg-brand-gold h-2 rounded-full" style="width: 90%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between text-sm mb-1">
-                <span class="text-gray-300">Automatización de Procesos (RPA)</span>
-                <span class="text-brand-gold">Avanzado</span>
-              </div>
-              <div class="w-full bg-gray-800 h-2 rounded-full">
-                <div class="bg-brand-gold h-2 rounded-full" style="width: 85%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between text-sm mb-1">
-                <span class="text-gray-300">Gestión de Proyectos TI (Scrum)</span>
-                <span class="text-brand-gold">Experto</span>
-              </div>
-              <div class="w-full bg-gray-800 h-2 rounded-full">
-                <div class="bg-brand-gold h-2 rounded-full" style="width: 95%"></div>
-              </div>
-            </div>
-          </div>
+          <img src="images/Logo-almeraya-sf.png" alt="Logo Almeraya" class="h-256 w-auto">
         </div>
       </div>
     </div>
@@ -267,7 +233,7 @@
         <!-- Columna 1: Marca -->
         <div class="space-y-4">
           <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded bg-brand-gold flex items-center justify-center font-bold text-brand-black">A</div>
+            <img src="images/logo-almeraya-sf.png" alt="Logo Almeraya" class="h-16 w-auto">
             <span class="text-xl font-black text-white">ALMERAYA</span>
           </div>
           <p class="text-xs text-gray-400 leading-relaxed">
@@ -286,20 +252,39 @@
           </ul>
         </div>
 
-        <!-- Columna 3: Contacto -->
-        <div>
-          <h4 class="text-sm font-bold text-white mb-4 uppercase tracking-wider">Contacto</h4>
-          <ul class="space-y-3 text-xs text-gray-400">
-            <li class="flex items-center gap-2">
-              <i class="fa-solid fa-envelope text-brand-gold"></i>
-              <span>contacto@almeraya.lat</span>
-            </li>
-            <li class="flex items-center gap-2">
-              <i class="fa-solid fa-globe text-brand-gold"></i>
-              <span>almeraya.lat</span>
-            </li>
-          </ul>
-        </div>
+          <!-- Columna 3: Contacto -->
+          <div>
+            <h4 class="text-sm font-bold text-white mb-4 uppercase tracking-wider">Contacto</h4>
+            <ul class="space-y-3 text-xs text-gray-400">
+              
+              <!-- Correo Electrónico Directo -->
+              <li>
+                <a href="mailto:luisalmeraya@gmail.com?subject=Consulta%20desde%20Sitio%20Web" 
+                  class="flex items-center gap-2 transition-colors hover:text-brand-gold">
+                  <i class="fa-solid fa-envelope text-brand-gold"></i>
+                  <span>luisalmeraya@gmail.com</span>
+                </a>
+              </li>
+
+              <!-- Sitio Web -->
+              <li class="flex items-center gap-2">
+                <i class="fa-solid fa-globe text-brand-gold"></i>
+                <span>almeraya.lat</span>
+              </li>
+
+              <!-- WhatsApp Directo con Mensaje Predeterminado -->
+              <li>
+                <a href="https://wa.me/525539773819?text=QUIERO%20UNA%20COTIZACION" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="flex items-center gap-2 transition-colors hover:text-brand-gold">
+                  <img src="images/whatsapp-icon.svg" alt="WhatsApp" class="w-4 h-4 service-icon">
+                  <span>55 3977 3819</span>
+                </a>
+              </li>
+              
+            </ul>
+          </div>
 
         <!-- Columna 4: Formulario Rápido -->
         <div>
@@ -307,15 +292,15 @@
           <form class="space-y-2" onsubmit="event.preventDefault(); alert('¡Gracias por tu mensaje! Te contactaremos pronto.');">
             <input type="email" placeholder="Tu correo electrónico" required class="w-full px-3 py-2 text-xs bg-brand-card border border-gray-800 rounded focus:outline-none focus:border-brand-gold text-white">
             <button type="submit" class="w-full py-2 bg-brand-gold text-brand-black text-xs font-bold rounded hover:bg-brand-goldHover transition">
-              Enviar Mensaje
+              Enviar correo
             </button>
           </form>
         </div>
       </div>
 
       <div class="border-t border-gray-900 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
-        <p>&copy; 2026 Almeraya. Todos los derechos reservados.</p>
-        <p>Diseñado para almeraya.lat</p>
+        <p>Todos los derechos reservados.</p>
+        <p>Diseñado por Luis Almeraya</p>
       </div>
     </div>
   </footer>
