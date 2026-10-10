@@ -1,66 +1,323 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Almeraya | Servicios Web y Automatización RPA</title>
+  <title>Almeraya | Desarrollo Web & Automatización RPA</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              black: '#0b0d10',
+              dark: '#13171f',
+              card: '#1a202c',
+              gold: '#d4af37',
+              goldHover: '#f3ca40',
+              gray: '#8a99ad'
+            }
+          }
+        }
+      }
+    }
+  </script>
   <style>
     body {
-      background-color: #0f1115;
+      background-color: #0b0d10;
       color: #e2e8f0;
-      font-family: system-ui, -apple-system, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
     }
-    .gold-accent {
-      color: #d4af37;
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #fff 30%, #d4af37 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .gold-bg {
-      background-color: #d4af37;
-    }
-    .gold-border {
-      border-color: #d4af37;
+    .gold-glow {
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between p-6 md:p-12">
+<body class="antialiased selection:bg-brand-gold selection:text-brand-black">
 
-  <!-- Encabezado / Logo -->
-  <header class="max-w-5xl mx-auto w-full flex justify-between items-center pb-8 border-b border-gray-800">
-    <div class="flex items-center space-x-3">
-      <span class="text-3xl font-extrabold tracking-wider text-white">ALMERAYA</span>
+  <!-- ENCABEZADO / NAVEGACIÓN -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-brand-dark/80 backdrop-blur-md border-b border-gray-800/60">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <!-- Logo -->
+      <a href="#inicio" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-gold to-amber-700 flex items-center justify-center font-bold text-brand-black text-xl shadow-md">
+          A
+        </div>
+        <span class="text-2xl font-black tracking-wider text-white group-hover:text-brand-gold transition">ALMERAYA</span>
+      </a>
+
+      <!-- Menú Superior -->
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
+        <a href="#inicio" class="hover:text-brand-gold transition">Inicio</a>
+        <a href="#servicios" class="hover:text-brand-gold transition">Servicios</a>
+        <a href="#proceso" class="hover:text-brand-gold transition">Proceso</a>
+        <a href="#sobre-mi" class="hover:text-brand-gold transition">Sobre mí</a>
+        <a href="#contacto" class="hover:text-brand-gold transition">Contacto</a>
+      </nav>
+
+      <!-- Botón LOGIN -->
+      <div class="flex items-center gap-4">
+        <a href="#login" class="px-5 py-2 text-sm font-semibold text-brand-black bg-brand-gold rounded-full hover:bg-brand-goldHover transition duration-300 shadow-md">
+          <i class="fa-solid font-bold fa-user mr-2"></i> LOGIN
+        </a>
+      </div>
     </div>
-    <span class="text-xs md:text-sm px-3 py-1 rounded-full border gold-border gold-accent">Servicios TI & RPA</span>
   </header>
 
-  <!-- Hero Section -->
-  <main class="max-w-4xl mx-auto w-full my-16 text-center">
-    <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-      Transformación Digital & <span class="gold-accent">Automatización</span>
-    </h1>
-    <p class="text-lg md:text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-      Desarrollo de sitios web de alto impacto y automatización de procesos con bots RPA para optimizar tu negocio.
-    </p>
-
-    <!-- Tarjetas de Servicios -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left my-12">
-      <div class="p-6 bg-gray-900/60 rounded-xl border border-gray-800 hover:border-amber-500/50 transition">
-        <h3 class="text-xl font-semibold text-white mb-2">💻 Desarrollo Web</h3>
-        <p class="text-sm text-gray-400">Páginas modernas, ultra rápidas y optimizadas para convertir visitantes en clientes.</p>
+  <!-- BANNER PRINCIPAL (HERO) -->
+  <section id="inicio" class="pt-36 pb-20 px-6 max-w-7xl mx-auto min-h-screen flex items-center">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest bg-brand-gold/10 text-brand-gold border border-brand-gold/30">
+          Soluciones de TI & Automatización
+        </span>
+        <h1 class="text-4xl sm:text-6xl font-black text-white mt-6 mb-6 leading-tight">
+          Lleva tu negocio al siguiente nivel con <span class="gold-gradient-text">Software & RPA</span>
+        </h1>
+        <p class="text-gray-400 text-lg mb-8 leading-relaxed">
+          Diseñamos páginas web de alto impacto y creamos bots de automatización de procesos para ahorrar tiempo, reducir costos y optimizar la operación de tu empresa.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#contacto" class="px-8 py-4 bg-brand-gold text-brand-black font-bold rounded-xl hover:bg-brand-goldHover transition shadow-lg flex items-center gap-2">
+            Iniciar Proyecto <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="#servicios" class="px-8 py-4 bg-brand-card text-white font-semibold rounded-xl border border-gray-700 hover:border-brand-gold transition">
+            Ver Servicios
+          </a>
+        </div>
       </div>
-      <div class="p-6 bg-gray-900/60 rounded-xl border border-gray-800 hover:border-amber-500/50 transition">
-        <h3 class="text-xl font-semibold text-white mb-2">🤖 Automatización RPA</h3>
-        <p class="text-sm text-gray-400">Bots y flujos de trabajo automatizados para eliminar tareas repetitivas.</p>
+
+      <!-- Ilustración Banner -->
+      <div class="relative">
+        <div class="w-full h-96 bg-gradient-to-tr from-brand-card to-gray-900 rounded-3xl border border-gray-800 gold-glow p-8 flex flex-col justify-between relative overflow-hidden">
+          <div class="flex justify-between items-center border-b border-gray-800 pb-4">
+            <div class="flex space-x-2">
+              <div class="w-3 h-3 rounded-full bg-red-500"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
+            <span class="text-xs font-mono text-gray-500">almeraya_workflow.rpa</span>
+          </div>
+          <div class="space-y-4 my-auto">
+            <div class="flex items-center gap-4 p-3 bg-brand-dark/90 rounded-lg border border-gray-800">
+              <i class="fa-solid fa-code text-brand-gold text-xl"></i>
+              <div>
+                <p class="text-xs text-gray-400">Desarrollo Web</p>
+                <p class="text-sm font-bold text-white">Sitios responsivos & ultra rápidos</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 p-3 bg-brand-dark/90 rounded-lg border border-gray-800">
+              <i class="fa-solid fa-robot text-brand-gold text-xl"></i>
+              <div>
+                <p class="text-xs text-gray-400">Automatización RPA</p>
+                <p class="text-sm font-bold text-white">Bots trabajando 24/7 sin errores</p>
+              </div>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-xs font-mono text-brand-gold">● Estado: Optimizado</span>
+          </div>
+        </div>
       </div>
     </div>
+  </section>
 
-    <a href="mailto:contacto@almeraya.lat" class="inline-block gold-bg text-gray-950 font-bold px-8 py-3 rounded-lg shadow-lg hover:bg-amber-400 transition">
-      Solicitar Cotización
-    </a>
-  </main>
+  <!-- SECCIÓN DE SERVICIOS -->
+  <section id="servicios" class="py-24 bg-brand-dark border-t border-b border-gray-800/80">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-3xl font-bold text-white mb-4">Servicios Especializados</h2>
+        <p class="text-gray-400">Combinamos la ingeniería de software con la gestión ágil de proyectos para entregar valor real a tu empresa.</p>
+      </div>
 
-  <!-- Footer -->
-  <footer class="max-w-5xl mx-auto w-full text-center pt-8 border-t border-gray-800 text-xs text-gray-500">
-    &copy; 2026 Almeraya. Todos los derechos reservados.
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Servicio 1 -->
+        <div class="bg-brand-black p-8 rounded-2xl border border-gray-800 hover:border-brand-gold/50 transition duration-300">
+          <div class="w-12 h-12 bg-brand-gold/10 text-brand-gold rounded-xl flex items-center justify-center text-2xl mb-6">
+            <i class="fa-solid fa-laptop-code"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">Creación de Páginas Web</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">Landing pages, sitios corporativos y tiendas en línea con diseño UX/UI moderno, adaptados a dispositivos móviles y optimizados para SEO.</p>
+        </div>
+
+        <!-- Servicio 2 -->
+        <div class="bg-brand-black p-8 rounded-2xl border border-gray-800 hover:border-brand-gold/50 transition duration-300">
+          <div class="w-12 h-12 bg-brand-gold/10 text-brand-gold rounded-xl flex items-center justify-center text-2xl mb-6">
+            <i class="fa-solid fa-gears"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">Automatización RPA</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">Desarrollo de bots para automatizar tareas repetitivas: extracción de datos, facturación, reportes y conexión entre sistemas.</p>
+        </div>
+
+        <!-- Servicio 3 -->
+        <div class="bg-brand-black p-8 rounded-2xl border border-gray-800 hover:border-brand-gold/50 transition duration-300">
+          <div class="w-12 h-12 bg-brand-gold/10 text-brand-gold rounded-xl flex items-center justify-center text-2xl mb-6">
+            <i class="fa-solid fa-diagram-project"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">Consultoría TI & PM</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">Gestión de proyectos tecnológicos bajo marcos ágiles (Scrum/Kanban), asegurando entregas a tiempo y alineadas a objetivos de negocio.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN DE PROCESO DE TRABAJO -->
+  <section id="proceso" class="py-24 max-w-7xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <h2 class="text-3xl font-bold text-white mb-4">¿Cómo trabajamos?</h2>
+      <p class="text-gray-400">Un flujo estructurado y transparente desde la primera llamada hasta la entrega final.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+      <div class="p-6 bg-brand-card rounded-xl border border-gray-800">
+        <span class="text-3xl font-black text-brand-gold">01</span>
+        <h4 class="text-lg font-bold text-white mt-2 mb-1">Diagnóstico</h4>
+        <p class="text-xs text-gray-400">Analizamos los requerimientos y procesos clave de tu negocio.</p>
+      </div>
+      <div class="p-6 bg-brand-card rounded-xl border border-gray-800">
+        <span class="text-3xl font-black text-brand-gold">02</span>
+        <h4 class="text-lg font-bold text-white mt-2 mb-1">Propuesta</h4>
+        <p class="text-xs text-gray-400">Diseñamos el plan, alcance y cotización a la medida.</p>
+      </div>
+      <div class="p-6 bg-brand-card rounded-xl border border-gray-800">
+        <span class="text-3xl font-black text-brand-gold">03</span>
+        <h4 class="text-lg font-bold text-white mt-2 mb-1">Desarrollo</h4>
+        <p class="text-xs text-gray-400">Construcción ágil con avances periódicos demostrables.</p>
+      </div>
+      <div class="p-6 bg-brand-card rounded-xl border border-gray-800">
+        <span class="text-3xl font-black text-brand-gold">04</span>
+        <h4 class="text-lg font-bold text-white mt-2 mb-1">Despliegue</h4>
+        <p class="text-xs text-gray-400">Puesta en producción, pruebas y soporte continuo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN SOBRE MÍ -->
+  <section id="sobre-mi" class="py-24 bg-brand-dark border-t border-gray-800/80">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="space-y-6">
+          <span class="text-brand-gold text-sm font-semibold uppercase tracking-widest">Sobre el fundador</span>
+          <h2 class="text-3xl font-bold text-white">Ingeniería en Computación & Dirección de Proyectos</h2>
+          <p class="text-gray-400 leading-relaxed">
+            Detrás de **Almeraya** se combina la base técnica de la ingeniería en computación con la visión estratégica de la dirección de proyectos de tecnologías de la información (Scrum Master).
+          </p>
+          <p class="text-gray-400 leading-relaxed">
+            Nuestro objetivo no es solo entregar líneas de código o páginas web bonitas, sino implementar soluciones tecnológicas operativas que resuelvan problemas reales de negocio y generen retorno de inversión.
+          </p>
+          <div class="grid grid-cols-2 gap-4 pt-4">
+            <div class="border-l-2 border-brand-gold pl-4">
+              <span class="text-2xl font-bold text-white">100%</span>
+              <p class="text-xs text-gray-400">Enfoque en Calidad & SLAs</p>
+            </div>
+            <div class="border-l-2 border-brand-gold pl-4">
+              <span class="text-2xl font-bold text-white">Agile</span>
+              <p class="text-xs text-gray-400">Metodologías Scrum & Kanban</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-brand-black p-8 rounded-2xl border border-gray-800">
+          <h3 class="text-xl font-bold text-white mb-6">Stack Tecnológico & Competencias</h3>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-300">Desarrollo Web (HTML, CSS, JS, React)</span>
+                <span class="text-brand-gold">Avanzado</span>
+              </div>
+              <div class="w-full bg-gray-800 h-2 rounded-full">
+                <div class="bg-brand-gold h-2 rounded-full" style="width: 90%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-300">Automatización de Procesos (RPA)</span>
+                <span class="text-brand-gold">Avanzado</span>
+              </div>
+              <div class="w-full bg-gray-800 h-2 rounded-full">
+                <div class="bg-brand-gold h-2 rounded-full" style="width: 85%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-300">Gestión de Proyectos TI (Scrum)</span>
+                <span class="text-brand-gold">Experto</span>
+              </div>
+              <div class="w-full bg-gray-800 h-2 rounded-full">
+                <div class="bg-brand-gold h-2 rounded-full" style="width: 95%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PIE DE PÁGINA Y CONTACTO -->
+  <footer id="contacto" class="bg-brand-black border-t border-gray-800 pt-16 pb-12">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <!-- Columna 1: Marca -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded bg-brand-gold flex items-center justify-center font-bold text-brand-black">A</div>
+            <span class="text-xl font-black text-white">ALMERAYA</span>
+          </div>
+          <p class="text-xs text-gray-400 leading-relaxed">
+            Servicios de Desarrollo Web, Automatización RPA y Consultoría Tecnológica.
+          </p>
+        </div>
+
+        <!-- Columna 2: Enlaces Rápidos -->
+        <div>
+          <h4 class="text-sm font-bold text-white mb-4 uppercase tracking-wider">Enlaces</h4>
+          <ul class="space-y-2 text-xs text-gray-400">
+            <li><a href="#inicio" class="hover:text-brand-gold">Inicio</a></li>
+            <li><a href="#servicios" class="hover:text-brand-gold">Servicios</a></li>
+            <li><a href="#proceso" class="hover:text-brand-gold">Proceso</a></li>
+            <li><a href="#sobre-mi" class="hover:text-brand-gold">Sobre mí</a></li>
+          </ul>
+        </div>
+
+        <!-- Columna 3: Contacto -->
+        <div>
+          <h4 class="text-sm font-bold text-white mb-4 uppercase tracking-wider">Contacto</h4>
+          <ul class="space-y-3 text-xs text-gray-400">
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-envelope text-brand-gold"></i>
+              <span>contacto@almeraya.lat</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-globe text-brand-gold"></i>
+              <span>almeraya.lat</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Columna 4: Formulario Rápido -->
+        <div>
+          <h4 class="text-sm font-bold text-white mb-4 uppercase tracking-wider">Cotiza tu Proyecto</h4>
+          <form class="space-y-2" onsubmit="event.preventDefault(); alert('¡Gracias por tu mensaje! Te contactaremos pronto.');">
+            <input type="email" placeholder="Tu correo electrónico" required class="w-full px-3 py-2 text-xs bg-brand-card border border-gray-800 rounded focus:outline-none focus:border-brand-gold text-white">
+            <button type="submit" class="w-full py-2 bg-brand-gold text-brand-black text-xs font-bold rounded hover:bg-brand-goldHover transition">
+              Enviar Mensaje
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-900 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
+        <p>&copy; 2026 Almeraya. Todos los derechos reservados.</p>
+        <p>Diseñado para almeraya.lat</p>
+      </div>
+    </div>
   </footer>
 
 </body>
