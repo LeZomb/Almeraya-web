@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Almeraya | Panel de Control Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              black: '#0b0d10',
+              dark: '#13181E',
+              card: '#1a202c',
+              gold: '#d4af37',
+              goldHover: '#f3ca40',
+              gray: '#8a99ad'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0b0d10;
+      color: #e2e8f0;
+      font-family: 'Consolas', system-ui, -apple-system, sans-serif;
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- ENCABEZADO -->
+  <header class="bg-brand-dark border-b border-gray-800 px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="images/logo-almeraya-sf.png" alt="Logo" class="h-10 w-auto">
+      <span class="text-xl font-bold text-white">ALMERAYA <span class="text-xs text-brand-gold font-normal">| Panel Admin</span></span>
+    </div>
+    <div id="user-session" class="hidden flex items-center gap-4">
+      <span id="user-email" class="text-xs text-gray-400"></span>
+      <button onclick="cerrarSesion()" class="text-xs px-3 py-1.5 bg-red-900/40 text-red-400 border border-red-800 rounded hover:bg-red-900/80 transition">
+        <i class="fa-solid fa-right-from-bracket mr-1"></i> Salir
+      </button>
+    </div>
+  </header>
+
+  <!-- SECCIÓN 1: FORMULARIO DE LOGIN (Visible si no hay sesión) -->
+  <section id="login-section" class="flex-grow flex items-center justify-center px-4 py-12">
+    <div class="bg-brand-card p-8 rounded-2xl border border-gray-800 w-full max-w-md shadow-2xl">
+      <div class="text-center mb-6">
+        <i class="fa-solid fa-user-shield text-4xl text-brand-gold mb-3"></i>
+        <h2 class="text-2xl font-bold text-white">Acceso Administrador</h2>
+        <p class="text-xs text-gray-400 mt-1">Ingresa tus credenciales para gestionar prospectos</p>
+      </div>
+
+      <form id="form-login" onsubmit="iniciarSesion(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-gray-400 mb-1">Correo Electrónico</label>
+          <input type="email" id="login-email" required class="w-full px-3 py-2 bg-brand-dark border border-gray-800 rounded focus:outline-none focus:border-brand-gold text-white text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-400 mb-1">Contraseña</label>
+          <input type="password" id="login-password" required class="w-full px-3 py-2 bg-brand-dark border border-gray-800 rounded focus:outline-none focus:border-brand-gold text-white text-sm">
+        </div>
+        <p id="login-error" class="text-xs text-red-500 hidden"></p>
+        <button type="submit" class="w-full py-2.5 bg-brand-gold text-brand-black text-sm font-bold rounded-lg hover:bg-brand-goldHover transition shadow-lg">
+          Iniciar Sesión
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 2: TABLERO KANBAN (Visible tras iniciar sesión) -->
+  <main id="kanban-section" class="hidden flex-grow px-6 py-8 max-w-7xl mx-auto w-full">
+    <div class="flex justify-between items-center mb-8">
+      <div>
+        <h1 class="text-2xl font-bold text-white">Tablero de Cotizaciones & Prospectos</h1>
+        <p class="text-xs text-gray-400">Gestiona y da seguimiento a las solicitudes recibidas</p>
+      </div>
+      <button onclick="cargarCotizaciones()" class="px-4 py-2 bg-brand-card border border-gray-800 text-xs font-semibold text-brand-gold rounded-lg hover:border-brand-gold transition">
+        <i class="fa-solid fa-rotate mr-1"></i> Actualizar
+      </button>
+    </div>
+
+    <!-- Columnas del Kanban -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Columna 1: NUEVO -->
+      <div class="bg-brand-card p-4 rounded-xl border border-gray-800 flex flex-col min-h-[500px]">
+        <div class="flex items-center justify-between pb-3 border-b border-gray-800 mb-4">
+          <span class="text-sm font-bold text-yellow-400 flex items-center gap-2">
+            <i class="fa-solid fa-circle text-[10px]"></i> NUEVOS
+          </span>
+          <span id="count-nuevo" class="text-xs px-2 py-0.5 bg-yellow-400/10 text-yellow-400 rounded-full font-mono">0</span>
+        </div>
+        <div id="col-NUEVO" class="space-y-3 flex-grow"></div>
+      </div>
+
+      <!-- Columna 2: EN PROCESO -->
+      <div class="bg-brand-card p-4 rounded-xl border border-gray-800 flex flex-col min-h-[500px]">
+        <div class="flex items-center justify-between pb-3 border-b border-gray-800 mb-4">
+          <span class="text-sm font-bold text-blue-400 flex items-center gap-2">
+            <i class="fa-solid fa-circle text-[10px]"></i> EN PROCESO
+          </span>
+          <span id="count-proceso" class="text-xs px-2 py-0.5 bg-blue-400/10 text-blue-400 rounded-full font-mono">0</span>
+        </div>
+        <div id="col-EN_PROCESO" class="space-y-3 flex-grow"></div>
+      </div>
+
+      <!-- Columna 3: CERRADO -->
+      <div class="bg-brand-card p-4 rounded-xl border border-gray-800 flex flex-col min-h-[500px]">
+        <div class="flex items-center justify-between pb-3 border-b border-gray-800 mb-4">
+          <span class="text-sm font-bold text-green-400 flex items-center gap-2">
+            <i class="fa-solid fa-circle text-[10px]"></i> CERRADOS
+          </span>
+          <span id="count-cerrado" class="text-xs px-2 py-0.5 bg-green-400/10 text-green-400 rounded-full font-mono">0</span>
+        </div>
+        <div id="col-CERRADO" class="space-y-3 flex-grow"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="bg-brand-dark border-t border-gray-800 py-4 text-center text-xs text-gray-600">
+    &copy; 2026 Almeraya. Sistema Interno de Gestión.
+  </footer>
+
+  <!-- SCRIPT LÓGICA DE AUTH Y KANBAN -->
+  <script>
+    const SUPABASE_URL = "https://TU_PROJECT_ID_AQUI.supabase.co"; 
+    const SUPABASE_ANON_KEY = "TU_ANON_PUBLIC_KEY_AQUI";
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Comprobar estado de la sesión al cargar
+    window.addEventListener('DOMContentLoaded', async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        mostrarKanban(session.user);
+      }
+    });
+
+    // Iniciar Sesión
+    async function iniciarSesion(e) {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      const errorEl = document.getElementById('login-error');
+
+      errorEl.classList.add('hidden');
+
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        errorEl.textContent = "Credenciales incorrectas o usuario no válido.";
+        errorEl.classList.remove('hidden');
+      } else {
+        mostrarKanban(data.user);
+      }
+    }
+
+    // Cerrar Sesión
+    async function cerrarSesion() {
+      await supabase.auth.signOut();
+      document.getElementById('login-section').classList.remove('hidden');
+      document.getElementById('kanban-section').classList.add('hidden');
+      document.getElementById('user-session').classList.add('hidden');
+    }
+
+    // Mostrar interfaz Kanban
+    function mostrarKanban(user) {
+      document.getElementById('login-section').classList.add('hidden');
+      document.getElementById('kanban-section').classList.remove('hidden');
+      document.getElementById('user-session').classList.remove('hidden');
+      document.getElementById('user-email').textContent = user.email;
+      cargarCotizaciones();
+    }
+
+    // Cargar tarjetas de la DB
+    async function cargarCotizaciones() {
+      const { data, error } = await supabase
+        .from('cotizaciones')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error("Error al cargar cotizaciones:", error);
+        return;
+      }
+
+      // Limpiar columnas
+      document.getElementById('col-NUEVO').innerHTML = '';
+      document.getElementById('col-EN_PROCESO').innerHTML = '';
+      document.getElementById('col-CERRADO').innerHTML = '';
+
+      let cNuevo = 0, cProceso = 0, cCerrado = 0;
+
+      data.forEach(item => {
+        const tarjeta = crearTarjetaHTML(item);
+        if (item.estado === 'NUEVO') {
+          document.getElementById('col-NUEVO').appendChild(tarjeta);
+          cNuevo++;
+        } else if (item.estado === 'EN_PROCESO') {
+          document.getElementById('col-EN_PROCESO').appendChild(tarjeta);
+          cProceso++;
+        } else if (item.estado === 'CERRADO') {
+          document.getElementById('col-CERRADO').appendChild(tarjeta);
+          cCerrado++;
+        }
+      });
+
+      document.getElementById('count-nuevo').textContent = cNuevo;
+      document.getElementById('count-proceso').textContent = cProceso;
+      document.getElementById('count-cerrado').textContent = cCerrado;
+    }
+
+    // Crear el elemento HTML de cada tarjeta
+    function crearTarjetaHTML(item) {
+      const card = document.createElement('div');
+      card.className = "bg-brand-dark p-4 rounded-lg border border-gray-800 space-y-2 text-xs shadow-md";
+      
+      const fecha = new Date(item.created_at).toLocaleDateString('es-MX', { day: '2-digit', month: 'short' });
+      const telClean = item.telefono.replace(/\D/g, '');
+
+      card.innerHTML = `
+        <div class="flex justify-between items-start">
+          <span class="font-bold text-white text-sm">${item.nombre}</span>
+          <span class="text-[10px] text-gray-500 font-mono">${fecha}</span>
+        </div>
+        <p class="text-brand-gold font-semibold">${item.servicio}</p>
+        <p class="text-gray-400 leading-relaxed">${item.comentarios || 'Sin comentarios.'}</p>
+        
+        <div class="flex items-center gap-2 pt-2 border-t border-gray-800/60">
+          <a href="https://wa.me/52${telClean}" target="_blank" class="px-2 py-1 bg-green-900/30 text-green-400 border border-green-800 rounded hover:bg-green-900/60 transition">
+            <i class="fa-brands fa-whatsapp"></i> Contactar
+          </a>
+          <select onchange="cambiarEstado('${item.id}', this.value)" class="bg-brand-card text-gray-300 border border-gray-700 rounded px-2 py-1 text-[11px] focus:outline-none">
+            <option value="NUEVO" ${item.estado === 'NUEVO' ? 'selected' : ''}>NUEVO</option>
+            <option value="EN_PROCESO" ${item.estado === 'EN_PROCESO' ? 'selected' : ''}>EN PROCESO</option>
+            <option value="CERRADO" ${item.estado === 'CERRADO' ? 'selected' : ''}>CERRADO</option>
+          </select>
+        </div>
+      `;
+      return card;
+    }
+
+    // Cambiar estado de una tarjeta en Supabase
+    async function cambiarEstado(id, nuevoEstado) {
+      const { error } = await supabase
+        .from('cotizaciones')
+        .update({ estado: nuevoEstado })
+        .eq('id', id);
+
+      if (error) {
+        alert("Error al actualizar el estado");
+      } else {
+        cargarCotizaciones();
+      }
+    }
+  </script>
+
+</body>
+</html>
