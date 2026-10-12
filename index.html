@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Almeraya | Desarrollo Web & Automatización RPA</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
     tailwind.config = {
@@ -62,7 +64,7 @@
 
       <!-- Botón LOGIN -->
       <div class="flex items-center gap-4">
-        <a href="#login" class="px-5 py-2 text-sm font-semibold text-brand-black bg-brand-gold rounded-full hover:bg-brand-goldHover transition duration-300 shadow-md">
+        <a href="admin.html" class="px-5 py-2 text-sm font-semibold text-brand-black bg-brand-gold rounded-full hover:bg-brand-goldHover transition duration-300 shadow-md">
           <i class="fa-solid font-bold fa-user mr-2"></i> LOGIN
         </a>
       </div>
@@ -77,7 +79,7 @@
           Soluciones de TI & Automatización
         </span>
         <h1 class="text-4xl sm:text-6xl font-black text-white mt-6 mb-6 leading-tight">
-          Lleva tu negocio al siguiente nivel con <span class="gold-gradient-text">Software & RPA</span>
+          Lleva tu negocio al siguiente nivel con Software & RPA
         </h1>
         <p class="text-gray-400 text-lg mb-8 leading-relaxed">
           Diseñamos páginas web de alto impacto y creamos bots de automatización de procesos para ahorrar tiempo, reducir costos y optimizar la operación de tu empresa.
@@ -350,6 +352,62 @@
       window.open(urlWhatsApp, '_blank');
     }
   </script>
+
+<script>
+  // Inicializar Supabase Client
+  const SUPABASE_URL = "https://hggrwbifrqhmzdsgwbuf.supabase.co"; 
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhnZ3J3YmlmcnFobXpkc2d3YnVmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1OTQ1NzgsImV4cCI6MjEwNzE3MDU3OH0.m5dlquCUsRGXTkKVvSSBaO8qfQ4zGaWizDbnb-QwRU0";
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  async function enviarWhatsApp(event) {
+    event.preventDefault();
+
+    const nombre = document.getElementById('nombre').value.trim();
+    const telefono = document.getElementById('telefono').value.trim();
+    const servicio = document.getElementById('servicio').value;
+    const comentarios = document.getElementById('comentarios').value.trim();
+
+    // Sanitización básica en cliente
+    const blackList = /["'|<>\\]/g;
+    if (blackList.test(nombre) || blackList.test(telefono) || blackList.test(comentarios)) {
+      alert("Por seguridad, los campos contienen caracteres no válidos.");
+      return;
+    }
+
+    try {
+      // 1. Guardar en la Base de Datos de Supabase
+      const { error } = await supabase
+        .from('cotizaciones')
+        .insert([{ 
+          nombre: nombre, 
+          telefono: telefono, 
+          servicio: servicio, 
+          comentarios: comentarios,
+          estado: 'NUEVO'
+        }]);
+
+      if (error) {
+        console.error("Error al guardar en Supabase:", error);
+      }
+    } catch (err) {
+      console.error("Error de conexión:", err);
+    }
+
+    // 2. Abrir WhatsApp con el formato de mensaje
+    const numeroWhatsApp = "525539773819";
+    const mensaje = `¡Hola, Almeraya! *Nueva solicitud desde el sitio web*:%0A%0A` +
+                    `*Nombre:* ${encodeURIComponent(nombre)}%0A` +
+                    `*Teléfono:* ${encodeURIComponent(telefono)}%0A` +
+                    `*Servicio:* ${encodeURIComponent(servicio)}%0A` +
+                    `*Comentarios:* ${encodeURIComponent(comentarios)}`;
+
+    const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensaje}`;
+    window.open(urlWhatsApp, '_blank');
+
+    // Limpiar formulario
+    document.getElementById('form-cotizacion').reset();
+  }
+</script>
 
 </body>
 </html>
