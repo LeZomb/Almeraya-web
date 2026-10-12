@@ -131,15 +131,17 @@
     &copy; 2026 Almeraya. Sistema Interno de Gestión.
   </footer>
 
-  <!-- SCRIPT ÚNICO DE LÓGICA -->
-    <script>
+<!-- SCRIPT ÚNICO DE LÓGICA -->
+  <script>
     const SUPABASE_URL = "https://hggrwbifrqhmzdsgwbuf.supabase.co"; 
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhnZ3J3YmlmcnFobXpkc2d3YnVmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1OTQ1NzgsImV4cCI6MjEwNzE3MDU3OH0.m5dlquCUsRGXTkKVvSSBaO8qfQ4zGaWizDbnb-QwRU0";
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    
+    // Usamos window para evitar conflictos de re-declaración
+    window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     // Comprobar estado de la sesión al cargar
     window.addEventListener('DOMContentLoaded', async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session } } = await window.supabaseClient.auth.getSession();
       if (session) {
         mostrarKanban(session.user);
       }
@@ -159,7 +161,7 @@
         return;
       }
 
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      const { data, error } = await window.supabaseClient.auth.signInWithPassword({ email, password });
 
       if (error) {
         console.error("Error de Supabase:", error);
@@ -172,7 +174,7 @@
 
     // Cerrar Sesión
     async function cerrarSesion() {
-      await supabase.auth.signOut();
+      await window.supabaseClient.auth.signOut();
       document.getElementById('login-section').classList.remove('hidden');
       document.getElementById('kanban-section').classList.add('hidden');
       document.getElementById('user-session').classList.add('hidden');
@@ -189,7 +191,7 @@
 
     // Cargar tarjetas de la DB
     async function cargarCotizaciones() {
-      const { data, error } = await supabase
+      const { data, error } = await window.supabaseClient
         .from('cotizaciones')
         .select('*')
         .order('created_at', { ascending: false });
@@ -256,7 +258,7 @@
 
     // Cambiar estado de una tarjeta en Supabase
     async function cambiarEstado(id, nuevoEstado) {
-      const { error } = await supabase
+      const { error } = await window.supabaseClient
         .from('cotizaciones')
         .update({ estado: nuevoEstado })
         .eq('id', id);
