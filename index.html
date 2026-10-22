@@ -42,6 +42,41 @@
       box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
     }
   </style>
+  <style>
+    /* Estilo del banner emergente de cookies */
+    .cookie-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #2c3e50;
+      color: #ffffff;
+      padding: 15px 20px;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      z-index: 9999;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+    .cookie-banner p { margin: 5px 0; }
+    .cookie-banner a { color: #3498db; text-decoration: underline; }
+    .cookie-btn {
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+    .cookie-btn:hover { background-color: #219150; }
+  </style>
+
 </head>
 <body class="antialiased selection:bg-brand-gold selection:text-brand-black">
 
@@ -50,7 +85,7 @@
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
       <!-- Logo -->
       <a href="#inicio" class="flex items-center gap-3 group">
-        <img src="images/logo-almeraya-sf-gold.png" alt="Logo Almeraya" class="h-16 w-auto">
+        <img src="images/logo-almeraya-sf.png" alt="Logo Almeraya" class="h-16 w-auto">
         <span class="text-2xl font-black tracking-wider text-white group-hover:text-brand-gold transition">ALMERAYA</span>
       </a>
 
@@ -64,11 +99,11 @@
       </nav>
 
       <!-- Botón LOGIN -->
-      <div class="flex items-center gap-4">
-        <a href="admin.html" class="px-5 py-2 text-sm font-semibold text-brand-black bg-brand-gold rounded-full hover:bg-brand-goldHover transition duration-300 shadow-md">
-          <i class="fa-solid font-bold fa-user mr-2"></i> LOGIN
-        </a>
-      </div>
+      <!div class="flex items-center gap-4">
+        <!a href="admin.html" class="px-5 py-2 text-sm font-semibold text-brand-black bg-brand-gold rounded-full hover:bg-brand-goldHover transition duration-300 shadow-md">
+          <!i class="fa-solid font-bold fa-user mr-2"><!/i> 
+        <!/a>
+      <!/div>
     </div>
   </header>
 
@@ -223,7 +258,7 @@
         </div>
 
         <div class="bg-brand-black p-8 rounded-2xl border border-gray-800 flex justify-center items-center">
-          <img src="images/logo-almeraya-sf-gold.png" alt="Logo Almeraya" class="h-64 w-auto object-contain">
+          <img src="images/logo-almeraya-sf.png" alt="Logo Almeraya" class="h-64 w-auto object-contain">
         </div>
       </div>
     </div>
@@ -236,7 +271,7 @@
         <!-- Columna 1: Marca -->
         <div class="space-y-4">
           <div class="flex items-center gap-3">
-            <img src="images/logo-almeraya-sf-gold.png" alt="Logo Almeraya" class="h-16 w-auto">
+            <img src="images/logo-almeraya-sf.png" alt="Logo Almeraya" class="h-16 w-auto">
             <span class="text-xl font-black text-white">ALMERAYA</span>
           </div>
           <p class="text-xs text-gray-400 leading-relaxed">
@@ -318,11 +353,17 @@
       <div class="border-t border-gray-900 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
         <p>2026 Almeraya. Todos los derechos reservados.</p>
         <p>Diseñado por Luis Almeraya</p>
+        <p>
+          <a href="terminos.html">Términos y Condiciones</a>
+        </p>
+        <p>
+          <a href="cookies.html">Política de Cookies</a>
+        </p>
       </div>
     </div>
   </footer>
 
-<!-- SCRIPT PARA ENVÍO DINÁMICO A WHATSAPP Y SANITIZACIÓN -->
+  <!-- SCRIPT PARA ENVÍO DINÁMICO A WHATSAPP Y SANITIZACIÓN -->
   <script>
     function enviarWhatsApp(event) {
       event.preventDefault();
@@ -407,6 +448,34 @@
       document.getElementById('form-cotizacion').reset();
     }
   </script>
+  
+  <!-- Banner de Cookies -->
+  <div id="cookie-banner" class="cookie-banner" style="display: none;">
+    <p>
+      Utilizamos cookies para mejorar tu experiencia en nuestro sitio web. Al continuar navegando, aceptas nuestra 
+      <a href="cookies.html" target="_blank">Política de Cookies</a> y nuestros 
+      <a href="terminos.html" target="_blank">Términos y Condiciones</a>.
+    </p>
+    <button id="accept-cookies" class="cookie-btn">Aceptar</button>
+  </div>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const banner = document.getElementById("cookie-banner");
+    const btn = document.getElementById("accept-cookies");
+
+    // Verificar si el usuario ya aceptó las cookies previamente
+    if (!localStorage.getItem("cookiesAceptadas")) {
+      banner.style.display = "flex";
+    }
+
+    // Al hacer clic en el botón, guardar la preferencia y ocultar el banner
+    btn.addEventListener("click", function () {
+      localStorage.setItem("cookiesAceptadas", "true");
+      banner.style.display = "none";
+    });
+  });
+</script>
 
 </body>
 </html>
